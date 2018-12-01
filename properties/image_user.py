@@ -131,7 +131,7 @@ class LuxCoreImageUser(PropertyGroup):
                 frame = self.get_frame(scene)
                 sub.label("Frame: %d" % frame)
                 if frame < self.first_frame or frame > self.last_frame:
-                    sub.label("Out of range", icon=icons.WARNING)
+                    sub.label(text="Out of range", icon=icons.WARNING)
             except ValueError as error:
                 sub.label(str(error), icon=icons.ERROR)
 

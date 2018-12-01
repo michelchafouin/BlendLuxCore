@@ -45,7 +45,7 @@
 #             layout.label("Use at least %d samples!" % min_samples, icon=icons.WARNING)
 #
 #         if not config.tile.multipass_enable and halt.samples > min_samples:
-#             layout.label("Samples halt condition overriden by disabled multipass", icon=icons.INFO)
+#             layout.label(text="Samples halt condition overriden by disabled multipass", icon=icons.INFO)
 #
 #     is_adaptive_sampler = config.engine == "PATH" and config.sampler in {"SOBOL", "RANDOM"}
 #     show_adaptive_sampling_props = halt.use_noise_thresh and is_adaptive_sampler
@@ -98,7 +98,7 @@
 #             col = layout.column(align=True)
 #             row = col.row()
 #             split = row.split(percentage=0.8)
-#             split.label("Render Layers Overriding Halt Conditions:")
+#             split.label(text="Render Layers Overriding Halt Conditions:")
 #             op = split.operator("luxcore.switch_space_data_context",
 #                                 text="Show", icon="RENDERLAYERS")
 #             op.target = "RENDER_LAYER"

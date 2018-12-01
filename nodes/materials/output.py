@@ -64,7 +64,7 @@ class LuxCoreNodeMatOutput(LuxCoreNodeOutput):
         col.prop(self, "is_shadow_catcher")
 
         if engine_is_bidir:
-            col.label("Not supported by Bidir engine", icon=icons.INFO)
+            col.label(text="Not supported by Bidir engine", icon=icons.INFO)
         elif self.is_shadow_catcher:
             # Some settings that should be used with shadow catcher
             if utils.is_valid_camera(context.scene.camera):

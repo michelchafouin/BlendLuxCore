@@ -52,7 +52,7 @@
 #         denoiser.draw(context, layout)
 #
 #         col = layout.column()
-#         col.label("Change the pass to see the result", icon=icons.INFO)
+#         col.label(text="Change the pass to see the result", icon=icons.INFO)
 #         if image:
 #             iuser = context.space_data.image_user
 #             col.template_image_layers(image, iuser)
@@ -62,7 +62,7 @@
 #             entry = log_entries[-1]
 #             col = layout.column(align=True)
 #             box = col.box()
-#             box.label("Denoised Image Stats", icon="IMAGE_DATA")
+#             box.label(text="Denoised Image Stats", icon="IMAGE_DATA")
 #             box = col.box()
 #             subcol = box.column()
 #             subcol.label("Samples: %d" % entry.samples)
@@ -71,8 +71,8 @@
 #
 #             box = col.box()
 #             subcol = box.column()
-#             subcol.label("Last Denoiser Settings:", icon="UI")
-#             subcol.label("Remove Fireflies: " + ("Enabled" if entry.filter_spikes else "Disabled"))
+#             subcol.label(text="Last Denoiser Settings:", icon="UI")
+#             subcol.label(text="Remove Fireflies: " + ("Enabled" if entry.filter_spikes else "Disabled"))
 #             subcol.label("Histogram Distance Threshold: " + str(entry.hist_dist_thresh))
 #             subcol.label("Search Window Radius: " + str(entry.search_window_radius))
 #             subcol.label("Scales: " + str(entry.scales))
@@ -89,7 +89,7 @@
 #         active_index = image.render_slots.active_index
 #
 #         if len(context.scene.render.layers) > 1:
-#             layout.label("Only stats of last rendered render layer are shown", icon=icons.WARNING)
+#             layout.label(text="Only stats of last rendered render layer are shown", icon=icons.WARNING)
 #
 #         layout.prop(statistics_collection, "compare")
 #

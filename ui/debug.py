@@ -12,7 +12,7 @@
 #         return context.scene.render.engine == "LUXCORE" and context.scene.luxcore.debug.show
 #
 #     def draw_header(self, context):
-#         self.layout.label("", icon="CONSOLE")
+#         self.layout.label(text="", icon="CONSOLE")
 #
 #     def draw(self, context):
 #         layout = self.layout

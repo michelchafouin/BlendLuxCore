@@ -13,7 +13,7 @@
 #
 #     if denoiser.enabled:
 #         if config.sampler == "METROPOLIS" and not config.use_tiles:
-#             col.label("Metropolis sampler can lead to artifacts!", icon=icons.WARNING)
+#             col.label(text="Metropolis sampler can lead to artifacts!", icon=icons.WARNING)
 #         if config.engine == "BIDIR" and config.filter != "NONE":
 #             col.label('Set filter to "None" to reduce blurriness', icon=icons.WARNING)
 #
@@ -51,4 +51,4 @@
 #         draw(context, self.layout)
 #
 #         col = self.layout.column(align=True)
-#         col.label("These settings are also available in the image editor tool shelf (press T)", icon=icons.INFO)
+#         col.label(text="These settings are also available in the image editor tool shelf (press T)", icon=icons.INFO)

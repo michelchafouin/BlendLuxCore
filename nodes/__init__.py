@@ -310,7 +310,7 @@ class LuxCoreNodeTreePointer(LuxCoreNode):
                                     "luxcore.pointer_unlink_node_tree")
 
         if self.node_tree == self.id_data:
-            layout.label("Recursion!", icon=icons.WARNING)
+            layout.label(text="Recursion!", icon=icons.WARNING)
 
     def sub_export(self, exporter, props, luxcore_name=None):
         if self.node_tree == self.id_data:

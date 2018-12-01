@@ -43,7 +43,7 @@ class LuxCoreNodeSocket(NodeSocket):
                     break
 
             if not is_allowed:
-                layout.label("Wrong Input!", icon=icons.ERROR)
+                layout.label(text="Wrong Input!", icon=icons.ERROR)
                 return
 
         has_default = hasattr(self, "default_value") and self.default_value is not None
@@ -244,8 +244,8 @@ class LuxCoreSocketVolumeAsymmetry(LuxCoreNodeSocket):
         split = layout.split()
         col = split.column()
         # Empty label to center the text vertically
-        col.label("")
-        col.label("Asymmetry:")
+        col.label(text="")
+        col.label(text="Asymmetry:")
 
         col = split.column()
         col.prop(self, "default_value", expand=True)

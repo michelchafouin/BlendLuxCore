@@ -20,12 +20,12 @@ COMPATIBLE_WITH_BIDIR = {
 #         engine_is_path = context.scene.luxcore.config.engine == "PATH"
 #
 #         if not engine_is_path:
-#             layout.label("The Bidir engine only supports a few AOVs", icon=icons.INFO)
+#             layout.label(text="The Bidir engine only supports a few AOVs", icon=icons.INFO)
 #
 #         split = layout.split()
 #         col = split.column(align=True)
 #
-#         col.label("Basic Information")
+#         col.label(text="Basic Information")
 #         col.prop(aovs, "rgb")
 #         col.prop(aovs, "rgba")
 #         col.prop(aovs, "alpha")
@@ -34,17 +34,17 @@ COMPATIBLE_WITH_BIDIR = {
 #         # All following AOVs are not supported by BIDIR, only by PATH
 #         sub = col.column(align=True)
 #         sub.active = engine_is_path
-#         sub.label("Material/Object Information")
+#         sub.label(text="Material/Object Information")
 #         sub.prop(aovs, "material_id")
 #         sub.prop(aovs, "material_id_color")
 #         sub.prop(aovs, "object_id")
 #         sub.prop(aovs, "emission")
 #
-#         sub.label("Direct Light Information")
+#         sub.label(text="Direct Light Information")
 #         sub.prop(aovs, "direct_diffuse")
 #         sub.prop(aovs, "direct_glossy")
 #
-#         sub.label("Indirect Light Information")
+#         sub.label(text="Indirect Light Information")
 #         sub.prop(aovs, "indirect_diffuse")
 #         sub.prop(aovs, "indirect_glossy")
 #         sub.prop(aovs, "indirect_specular")
@@ -54,17 +54,17 @@ COMPATIBLE_WITH_BIDIR = {
 #         sub = col.column(align=True)
 #         sub.active = engine_is_path
 #
-#         sub.label("Geometry Information")
+#         sub.label(text="Geometry Information")
 #         sub.prop(aovs, "position")
 #         sub.prop(aovs, "shading_normal")
 #         sub.prop(aovs, "geometry_normal")
 #         sub.prop(aovs, "uv")
 #
-#         sub.label("Shadow Information")
+#         sub.label(text="Shadow Information")
 #         sub.prop(aovs, "direct_shadow_mask")
 #         sub.prop(aovs, "indirect_shadow_mask")
 #
-#         sub.label("Render Information")
+#         sub.label(text="Render Information")
 #         sub.prop(aovs, "irradiance")
 #         sub.prop(aovs, "raycount")
 #         sub.prop(aovs, "convergence")
