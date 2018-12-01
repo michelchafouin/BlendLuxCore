@@ -8,7 +8,7 @@ REFLECTION_DESCRIPTION = "Glossy layer reflection value"
 
 class LuxCoreSocketReflection(LuxCoreSocketFloat):
     # Reflections look weird when roughness gets too small
-    default_value = FloatProperty(min=0.00001, max=1, description=REFLECTION_DESCRIPTION)
+    default_value: FloatProperty(min=0.00001, max=1, description=REFLECTION_DESCRIPTION)
     slider = True
 
 
@@ -48,7 +48,7 @@ class LuxCoreNodeMatCarpaint(LuxCoreNodeMaterial):
         ("polaris silber", "Polaris Silber", "polaris silber", 7),
         ("white", "White", "white", 8),
     ]
-    preset = EnumProperty(name="Preset", items=preset_items, default="manual", update=update_preset)
+    preset: EnumProperty(name="Preset", items=preset_items, default="manual", update=update_preset)
 
     def init(self, context):
         self.add_input("LuxCoreSocketColor", "Diffuse Color", (0.3, 0.3, 0.3))

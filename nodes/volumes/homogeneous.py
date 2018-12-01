@@ -8,14 +8,14 @@ class LuxCoreNodeVolHomogeneous(LuxCoreNodeVolume):
     bl_width_default = 175
 
     # TODO: get name, default, description etc. from super class or something
-    priority = IntProperty(name="Priority", default=0, min=0)
-    emission_id = IntProperty(name="Lightgroup ID", default=0, min=0)
-    color_depth = FloatProperty(name="Absorption Depth", default=1.0, min=0,
+    priority: IntProperty(name="Priority", default=0, min=0)
+    emission_id: IntProperty(name="Lightgroup ID", default=0, min=0)
+    color_depth: FloatProperty(name="Absorption Depth", default=1.0, min=0,
                                 subtype="DISTANCE", unit="LENGTH",
                                 description=COLORDEPTH_DESC)
-    lightgroup = StringProperty(name="Light Group", description=LIGHTGROUP_DESC)
+    lightgroup: StringProperty(name="Light Group", description=LIGHTGROUP_DESC)
 
-    multiscattering = BoolProperty(name="Multiscattering", default=False)
+    multiscattering: BoolProperty(name="Multiscattering", default=False)
 
     def init(self, context):
         self.add_common_inputs()

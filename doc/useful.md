@@ -21,6 +21,6 @@ class Test:
     def update_b(self, context):
         self["a"] = int(self.b)
 
-    a = IntProperty(update=update_a)
-    b = StringProperty(update=update_b)
+    a: IntProperty(update=update_a)
+    b: StringProperty(update=update_b)
 ```

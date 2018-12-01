@@ -22,7 +22,7 @@ class LuxCoreNodeTexHitpoint(LuxCoreNodeTexture):
         ("hitpointcolor", "Color", "Vertex Color", 0),
         ("hitpointgrey", "Grey", "Convert color to grey", 1),
     ]
-    mode = EnumProperty(name="Mode", items=mode_items, default="hitpointcolor",
+    mode: EnumProperty(name="Mode", items=mode_items, default="hitpointcolor",
                         update=change_mode)
 
     # Only used for hitpointgrey
@@ -32,7 +32,7 @@ class LuxCoreNodeTexHitpoint(LuxCoreNodeTexture):
         ("1", "G", "Green luminance", 2),
         ("2", "B", "Blue luminance", 3),
     ]
-    channel = EnumProperty(name="Channel", items=channel_items, default="-1")
+    channel: EnumProperty(name="Channel", items=channel_items, default="-1")
 
     def init(self, context):
         self.outputs.new("LuxCoreSocketColor", "Color")

@@ -280,7 +280,7 @@ class LuxCoreNodeTreePointer(LuxCoreNode):
             self.outputs["Color"].enabled = False
             self.outputs["Volume"].enabled = False
 
-    node_tree = PointerProperty(name="Node Tree", type=bpy.types.NodeTree, update=update_node_tree,
+    node_tree: PointerProperty(name="Node Tree", type=bpy.types.NodeTree, update=update_node_tree,
                                 description="Use the output of the selected node tree in this node tree")
 
     def init(self, context):
@@ -335,7 +335,7 @@ class Roughness:
     """
     How to use this class:
     Declare a use_anisotropy property like this:
-    use_anisotropy = BoolProperty(name=Roughness.aniso_name,
+    use_anisotropy: BoolProperty(name=Roughness.aniso_name,
                                   default=False,
                                   description=Roughness.aniso_desc,
                                   update=Roughness.update_anisotropy)

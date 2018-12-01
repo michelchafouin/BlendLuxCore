@@ -12,7 +12,7 @@ class LuxCoreNodeVolOutput(LuxCoreNodeOutput):
     bl_label = "Volume Output"
     bl_width_default = 160
 
-    active = BoolProperty(name="Active", default=True, update=update_active)
+    active: BoolProperty(name="Active", default=True, update=update_active)
 
     def init(self, context):
         self.inputs.new("LuxCoreSocketVolume", "Volume")

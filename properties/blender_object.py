@@ -10,9 +10,9 @@ DESC_MOTION_BLUR = "Export this object as instance if object motion blur is enab
 
 
 def init():
-    bpy.types.Object.luxcore = PointerProperty(type=LuxCoreObjectProps)
+    bpy.types.Object.luxcore: PointerProperty(type=LuxCoreObjectProps)
 
 
 class LuxCoreObjectProps(PropertyGroup):
-    visible_to_camera = BoolProperty(name="Visible to Camera", default=True, description=DESC_VISIBLE_TO_CAM)
-    enable_motion_blur = BoolProperty(name="Motion Blur", default=True, description=DESC_MOTION_BLUR)
+    visible_to_camera: BoolProperty(name="Visible to Camera", default=True, description=DESC_VISIBLE_TO_CAM)
+    enable_motion_blur: BoolProperty(name="Motion Blur", default=True, description=DESC_MOTION_BLUR)

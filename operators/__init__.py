@@ -117,9 +117,9 @@ class LUXCORE_OT_add_node(bpy.types.Operator):
     bl_idname = "luxcore.add_node"
     bl_label = "Add"
 
-    node_type = StringProperty()
-    socket_type = StringProperty()
-    input_socket = StringProperty()
+    node_type: StringProperty()
+    socket_type: StringProperty()
+    input_socket: StringProperty()
 
     @classmethod
     def poll(cls, context):
@@ -173,7 +173,7 @@ class LUXCORE_OT_copy_error_to_clipboard(bpy.types.Operator):
     bl_label = ""
     bl_description = "Copy the error message to clipboard so you can paste it with Ctrl+V"
 
-    message = StringProperty()
+    message: StringProperty()
 
     def execute(self, context):
         context.window_manager.clipboard = self.message
@@ -188,7 +188,7 @@ class LUXCORE_OT_open_website(bpy.types.Operator):
     # op = layout.operator("luxcore.open_website", text="Wiki Page", icon=icons.URL)
     # op.url = "https://www.example.com"
 
-    url = StringProperty()
+    url: StringProperty()
 
     def execute(self, context):
         webbrowser.open(self.url)
@@ -206,8 +206,8 @@ class LUXCORE_OT_open_website_popup(bpy.types.Operator):
     #                                    message="Short message",
     #                                    url="http://example.com/")
 
-    message = StringProperty()
-    url = StringProperty()
+    message: StringProperty()
+    url: StringProperty()
 
     def draw(self, context):
         layout = self.layout

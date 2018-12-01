@@ -53,12 +53,12 @@ class LuxCoreNodeTexMath(LuxCoreNodeTexture):
         ("clamp", "Clamp", "Clamp the input so it is between min and max values", 4),
         ("abs", "Absolute", "Take the absolute value (remove minus sign)", 5),
     ]
-    mode = EnumProperty(name="Mode", items=mode_items, default="scale", update=change_mode)
+    mode: EnumProperty(name="Mode", items=mode_items, default="scale", update=change_mode)
 
-    mode_clamp_min = FloatProperty(name="Min", description="", default=0)
-    mode_clamp_max = FloatProperty(name="Max", description="", default=1)
+    mode_clamp_min: FloatProperty(name="Min", description="", default=0)
+    mode_clamp_max: FloatProperty(name="Max", description="", default=1)
 
-    clamp_output = BoolProperty(name="Clamp", default=False,
+    clamp_output: BoolProperty(name="Clamp", default=False,
                                 description="Limit the output value to 0..1 range")
 
     def init(self, context):

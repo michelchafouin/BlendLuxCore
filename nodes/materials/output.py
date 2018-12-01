@@ -26,10 +26,10 @@ class LuxCoreNodeMatOutput(LuxCoreNodeOutput):
     bl_label = "Material Output"
     bl_width_default = 220
 
-    active = BoolProperty(name="Active", default=True, update=update_active)
-    is_shadow_catcher = BoolProperty(name="Shadow Catcher", default=False,
+    active: BoolProperty(name="Active", default=True, update=update_active)
+    is_shadow_catcher: BoolProperty(name="Shadow Catcher", default=False,
                                      description=SHADOWCATCHER_DESC)
-    id = IntProperty(name="Material ID", default=-1, min=-1, soft_max=32767,
+    id: IntProperty(name="Material ID", default=-1, min=-1, soft_max=32767,
                      description=MATERIAL_ID_DESC)
 
     def init(self, context):

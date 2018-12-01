@@ -7,9 +7,9 @@ class LuxCoreNodeTexBlenderNoise(LuxCoreNodeTexture):
     bl_label = "Blender Noise"
     bl_width_default = 200    
 
-    noise_depth = IntProperty(name="Noise Depth", default=2, min=0)
-    bright = FloatProperty(name="Brightness", default=1.0, min=0)
-    contrast = FloatProperty(name="Contrast", default=1.0, min=0)
+    noise_depth: IntProperty(name="Noise Depth", default=2, min=0)
+    bright: FloatProperty(name="Brightness", default=1.0, min=0)
+    contrast: FloatProperty(name="Contrast", default=1.0, min=0)
 
     def init(self, context):
         self.add_input("LuxCoreSocketMapping3D", "3D Mapping")
