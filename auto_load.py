@@ -25,12 +25,7 @@ def init():
 
 def register():
     for cls in ordered_classes:
-        try:
-            bpy.utils.register_class(cls)
-        except Exception as e:
-            # TODO exclude OperatorFileListElement
-            print("Could not register class:", cls)
-            print(e)
+        bpy.utils.register_class(cls)
 
     for module in modules:
         if module.__name__ == __name__:
@@ -101,7 +96,8 @@ def iter_classes_to_register(modules):
     base_types = get_register_base_types()
     for cls in get_classes_in_modules(modules):
         if any(base in base_types for base in cls.__bases__):
-            yield cls
+            if not getattr(cls, "is_registered", False):
+                yield cls
 
 def get_classes_in_modules(modules):
     classes = set()
@@ -120,7 +116,7 @@ def get_register_base_types():
         "Panel", "Operator", "PropertyGroup",
         "AddonPreferences", "Header", "Menu",
         "Node", "NodeSocket", "NodeTree",
-        "UIList",
+        "UIList"
     ])
 
 
