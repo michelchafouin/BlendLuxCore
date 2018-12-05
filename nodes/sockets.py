@@ -1,5 +1,5 @@
+import bpy
 import mathutils
-from bpy.types import NodeSocket
 from bpy.props import EnumProperty, FloatProperty, FloatVectorProperty
 from ..utils.node import update_opengl_materials
 from ..ui import icons
@@ -17,7 +17,7 @@ ROUGHNESS_DESCRIPTION = "Microfacet roughness; higher values lead to more blurry
 IOR_DESCRIPTION = "Index of refraction; typical values: 1.0 (air), 1.3 (water), 1.5 (glass)"
 
 
-class LuxCoreNodeSocket(NodeSocket):
+class LuxCoreNodeSocket:
     bl_label = ""
 
     color = (1, 1, 1, 1)
@@ -124,12 +124,12 @@ class Color:
     mapping_3d = (0.50, 0.25, 0.60, 1.0)
 
 
-class LuxCoreSocketMaterial(LuxCoreNodeSocket):
+class LuxCoreSocketMaterial(LuxCoreNodeSocket, bpy.types.NodeSocket):
     color = Color.material
     # no default value
 
 
-class LuxCoreSocketVolume(LuxCoreNodeSocket):
+class LuxCoreSocketVolume(LuxCoreNodeSocket, bpy.types.NodeSocket):
     color = Color.volume
     # The node type that can be instantly added to this node
     # (via operator drawn in LuxCoreNodeSocket)
@@ -137,7 +137,7 @@ class LuxCoreSocketVolume(LuxCoreNodeSocket):
     # no default value
 
 
-class LuxCoreSocketFresnel(LuxCoreNodeSocket):
+class LuxCoreSocketFresnel(LuxCoreNodeSocket, bpy.types.NodeSocket):
     color = Color.fresnel_texture
     # The node type that can be instantly added to this node
     # (via operator drawn in LuxCoreNodeSocket)
@@ -145,7 +145,7 @@ class LuxCoreSocketFresnel(LuxCoreNodeSocket):
     # no default value
 
 
-class LuxCoreSocketMatEmission(LuxCoreNodeSocket):
+class LuxCoreSocketMatEmission(LuxCoreNodeSocket, bpy.types.NodeSocket):
     """ Special socket for material emission """
     color = Color.mat_emission
     # The node type that can be instantly added to this node
@@ -163,12 +163,12 @@ class LuxCoreSocketMatEmission(LuxCoreNodeSocket):
                 print("ERROR: can't export emission; not an emission node")
 
 
-class LuxCoreSocketBump(LuxCoreNodeSocket):
+class LuxCoreSocketBump(LuxCoreNodeSocket, bpy.types.NodeSocket):
     color = Color.float_texture
     # no default value
 
 
-class LuxCoreSocketColor(LuxCoreNodeSocket):
+class LuxCoreSocketColor(LuxCoreNodeSocket, bpy.types.NodeSocket):
     color = Color.color_texture
     # Currently this is the only socket that updates OpenGL materials
     default_value: FloatVectorProperty(subtype="COLOR", soft_min=0, soft_max=1,
@@ -196,32 +196,32 @@ class LuxCoreSocketFloat(LuxCoreNodeSocket):
 
 # Use this socket for normal float values without min/max bounds.
 # For some unkown reason, we can't use the LuxCoreSocketFloat directly.
-class LuxCoreSocketFloatUnbounded(LuxCoreSocketFloat):
+class LuxCoreSocketFloatUnbounded(LuxCoreSocketFloat, bpy.types.NodeSocket):
     default_value: FloatProperty(description="Float value")
 
 
-class LuxCoreSocketFloatPositive(LuxCoreSocketFloat):
+class LuxCoreSocketFloatPositive(LuxCoreSocketFloat, bpy.types.NodeSocket):
     default_value: FloatProperty(min=0, description="Positive float value")
 
 
-class LuxCoreSocketFloat0to1(LuxCoreSocketFloat):
+class LuxCoreSocketFloat0to1(LuxCoreSocketFloat, bpy.types.NodeSocket):
     default_value: FloatProperty(min=0, max=1, description="Float value between 0 and 1")
     slider = True
 
 
-class LuxCoreSocketFloat0to2(LuxCoreSocketFloat):
+class LuxCoreSocketFloat0to2(LuxCoreSocketFloat, bpy.types.NodeSocket):
     default_value: FloatProperty(min=0, max=2, description="Float value between 0 and 2")
     slider = True
 
 
-class LuxCoreSocketRoughness(LuxCoreSocketFloat):
+class LuxCoreSocketRoughness(LuxCoreSocketFloat, bpy.types.NodeSocket):
     # Reflections look weird when roughness gets too small
     default_value: FloatProperty(min=0.001, soft_max=0.8, max=1.0, precision=4,
                                   description=ROUGHNESS_DESCRIPTION)
     slider = True
 
 
-class LuxCoreSocketIOR(LuxCoreSocketFloat):
+class LuxCoreSocketIOR(LuxCoreSocketFloat, bpy.types.NodeSocket):
     default_value: FloatProperty(name="IOR", min=1, soft_max=2.0, max=25, step=0.1,
                                   precision=4, description=IOR_DESCRIPTION)
 
@@ -234,7 +234,7 @@ class LuxCoreSocketIOR(LuxCoreSocketFloat):
         super().draw(context, layout, node, text)
 
 
-class LuxCoreSocketVolumeAsymmetry(LuxCoreNodeSocket):
+class LuxCoreSocketVolumeAsymmetry(LuxCoreNodeSocket, bpy.types.NodeSocket):
     color = Color.color_texture
     default_value: FloatVectorProperty(name="", default=(0, 0, 0), min=-1, max=1, subtype="COLOR",
                                         description="Scattering asymmetry. -1 means back scatter, "
@@ -254,7 +254,7 @@ class LuxCoreSocketVolumeAsymmetry(LuxCoreNodeSocket):
         return list(self.default_value)
 
 
-class LuxCoreSocketMapping2D(LuxCoreNodeSocket):
+class LuxCoreSocketMapping2D(LuxCoreNodeSocket, bpy.types.NodeSocket):
     color = Color.mapping_2d
     # The node type that can be instantly added to this node
     # (via operator drawn in LuxCoreNodeSocket)
@@ -272,7 +272,7 @@ class LuxCoreSocketMapping2D(LuxCoreNodeSocket):
         return uvscale, uvrotation, uvdelta
 
 
-class LuxCoreSocketMapping3D(LuxCoreNodeSocket):
+class LuxCoreSocketMapping3D(LuxCoreNodeSocket, bpy.types.NodeSocket):
     color = Color.mapping_3d
     # The node type that can be instantly added to this node
     # (via operator drawn in LuxCoreNodeSocket)
