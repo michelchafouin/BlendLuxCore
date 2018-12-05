@@ -37,7 +37,7 @@ GROUND_COLOR_DESC = GROUND_ENABLE_DESC
 
 
 def init():
-    bpy.types.World.luxcore: PointerProperty(type=LuxCoreWorldProps)
+    bpy.types.World.luxcore = PointerProperty(type=LuxCoreWorldProps)
 
 
 class LuxCoreWorldProps(bpy.types.PropertyGroup):

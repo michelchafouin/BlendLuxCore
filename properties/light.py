@@ -69,7 +69,7 @@ THETA_DESC = "Half angle in degrees. Larger values make the light source appear 
 
 
 def init():
-    bpy.types.Light.luxcore: PointerProperty(type=LuxCoreLightProps)
+    bpy.types.Light.luxcore = PointerProperty(type=LuxCoreLightProps)
 
 
 class LuxCoreLightProps(bpy.types.PropertyGroup):

@@ -9,7 +9,7 @@ from .light import GAMMA_DESCRIPTION
 
 
 def init():
-    bpy.types.ParticleSettings.luxcore: PointerProperty(type=LuxCoreParticlesProps)
+    bpy.types.ParticleSettings.luxcore = PointerProperty(type=LuxCoreParticlesProps)
 
 
 TESSEL_ITEMS = [

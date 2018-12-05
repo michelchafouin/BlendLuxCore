@@ -20,7 +20,7 @@ AUTO_VOLUME_DESC = "Use the exterior volume of the object in the middle of the f
 
 
 def init():
-    bpy.types.Camera.luxcore: PointerProperty(type=LuxCoreCameraProps)
+    bpy.types.Camera.luxcore = PointerProperty(type=LuxCoreCameraProps)
 
 
 class LuxCoreMotionBlur(PropertyGroup):

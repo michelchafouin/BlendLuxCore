@@ -7,7 +7,7 @@ from . import (
 
 
 def init():
-    bpy.types.Scene.luxcore: PointerProperty(type=LuxCoreScene)
+    bpy.types.Scene.luxcore = PointerProperty(type=LuxCoreScene)
 
 
 class LuxCoreScene(bpy.types.PropertyGroup):

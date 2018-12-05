@@ -4,7 +4,7 @@ from bpy.props import PointerProperty, FloatProperty
 
 
 def init():
-    bpy.types.Material.luxcore: PointerProperty(type=LuxCoreMaterialProps)
+    bpy.types.Material.luxcore = PointerProperty(type=LuxCoreMaterialProps)
 
 
 class LuxCoreMaterialPreviewProps(PropertyGroup):

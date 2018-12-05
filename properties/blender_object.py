@@ -10,7 +10,7 @@ DESC_MOTION_BLUR = "Export this object as instance if object motion blur is enab
 
 
 def init():
-    bpy.types.Object.luxcore: PointerProperty(type=LuxCoreObjectProps)
+    bpy.types.Object.luxcore = PointerProperty(type=LuxCoreObjectProps)
 
 
 class LuxCoreObjectProps(PropertyGroup):
