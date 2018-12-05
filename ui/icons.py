@@ -11,8 +11,8 @@ INFO = "INFO"
 WARNING = "ERROR"
 ERROR = "CANCEL"
 
-ADD = "ZOOMIN"  # + sign
-REMOVE = "ZOOMOUT"  # - sign, used to remove one element from a collection
+ADD = "ADD"  # + sign
+REMOVE = "REMOVE"  # - sign, used to remove one element from a collection
 CLEAR = "X"  # x sign, used to clear a link (e.g. the world volume)
 
 ADD_KEYFRAME = "KEY_HLT"
@@ -32,3 +32,6 @@ WORLD = "WORLD"
 
 EXPANDABLE_CLOSED = "TRIA_RIGHT"
 EXPANDABLE_OPENED = "TRIA_DOWN"
+
+FAKE_USER_ON = "FAKE_USER_ON"
+FAKE_USER_OFF = "FAKE_USER_OFF"
