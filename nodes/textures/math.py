@@ -1,3 +1,4 @@
+import bpy
 from bpy.props import EnumProperty, FloatProperty, BoolProperty
 from .. import LuxCoreNodeTexture
 from ... import utils
@@ -32,7 +33,7 @@ INPUT_SETTINGS = {
 }
 
 
-class LuxCoreNodeTexMath(LuxCoreNodeTexture):
+class LuxCoreNodeTexMath(LuxCoreNodeTexture, bpy.types.Node):
     """Math node with several math operations"""
     bl_label = "Math"
 

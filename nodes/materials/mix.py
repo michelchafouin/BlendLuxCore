@@ -1,8 +1,9 @@
+import bpy
 from .. import LuxCoreNodeMaterial
 from ...utils import node as utils_node
 
 
-class LuxCoreNodeMatMix(LuxCoreNodeMaterial):
+class LuxCoreNodeMatMix(LuxCoreNodeMaterial, bpy.types.Node):
     bl_label = "Mix Material"
     bl_width_default = 160
 

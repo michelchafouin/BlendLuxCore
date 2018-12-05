@@ -1,10 +1,11 @@
+import bpy
 from bpy.props import BoolProperty, EnumProperty, FloatProperty
 from .. import LuxCoreNodeTexture
 
 from ... import utils
 
 
-class LuxCoreNodeTexBlenderBlend(LuxCoreNodeTexture):
+class LuxCoreNodeTexBlenderBlend(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Blender Blend"
     bl_width_default = 200    
 

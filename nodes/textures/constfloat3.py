@@ -1,10 +1,11 @@
+import bpy
 from bpy.props import FloatVectorProperty, BoolProperty, EnumProperty, StringProperty
 from .. import LuxCoreNodeTexture
 from mathutils import Color
 from ...ui import icons
 
 
-class LuxCoreNodeTexConstfloat3(LuxCoreNodeTexture):
+class LuxCoreNodeTexConstfloat3(LuxCoreNodeTexture, bpy.types.Node):
     """
     Constant color.
     Note that we do not offer a direct hex code input,

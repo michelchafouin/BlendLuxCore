@@ -158,6 +158,7 @@ def register():
     # from . import render, units
     #render.register()
     #units.register()
+    print("UI registered")
 
 
 def unregister():
@@ -167,3 +168,4 @@ def unregister():
     # from . import render, units
     #render.unregister()
     #units.unregister()
+    print("UI unregistered")

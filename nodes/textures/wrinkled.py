@@ -5,7 +5,7 @@ from .. import LuxCoreNodeTexture
 from .. import sockets
 from ... import utils
 
-class LuxCoreNodeTexWrinkled(LuxCoreNodeTexture):
+class LuxCoreNodeTexWrinkled(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Wrinkled"
     bl_width_default = 200
 

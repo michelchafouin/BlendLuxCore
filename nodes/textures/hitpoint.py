@@ -1,9 +1,10 @@
+import bpy
 from bpy.props import EnumProperty
 from .. import LuxCoreNodeTexture
 from ...utils import node as utils_node
 
 
-class LuxCoreNodeTexHitpoint(LuxCoreNodeTexture):
+class LuxCoreNodeTexHitpoint(LuxCoreNodeTexture, bpy.types.Node):
     """ Node for hitpointcolor and hitpointgrey textures """
     bl_label = "Vertex Color"
     bl_width_default = 150

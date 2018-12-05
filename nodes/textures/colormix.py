@@ -1,10 +1,11 @@
+import bpy
 from bpy.props import BoolProperty, EnumProperty, FloatProperty
 from .. import LuxCoreNodeTexture
 from ... import utils
 from ...ui import icons
 
 
-class LuxCoreNodeTexColorMix(LuxCoreNodeTexture):
+class LuxCoreNodeTexColorMix(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "ColorMix"
     bl_width_default = 200
 

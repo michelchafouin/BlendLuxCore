@@ -1,7 +1,8 @@
+import bpy
 from .. import LuxCoreNodeTexture
 
 
-class LuxCoreNodeTexRemap(LuxCoreNodeTexture):
+class LuxCoreNodeTexRemap(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Remap"
     bl_width_default = 160
 

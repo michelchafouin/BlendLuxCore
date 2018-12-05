@@ -4,7 +4,7 @@ from .. import LuxCoreNodeTexture
 from ... import utils
 from .. import COLORDEPTH_DESC
 
-class LuxCoreNodeTexColorAtDepth(LuxCoreNodeTexture):
+class LuxCoreNodeTexColorAtDepth(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Color at depth"
     bl_width_default = 200
     

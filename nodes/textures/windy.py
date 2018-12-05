@@ -5,7 +5,7 @@ from .. import LuxCoreNodeTexture
 from .. import sockets
 from ... import utils
 
-class LuxCoreNodeTexWindy(LuxCoreNodeTexture):
+class LuxCoreNodeTexWindy(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Windy"
     bl_width_default = 200
     

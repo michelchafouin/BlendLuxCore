@@ -1,3 +1,4 @@
+import bpy
 from bpy.props import EnumProperty, FloatProperty
 from .. import LuxCoreNodeTexture
 
@@ -7,7 +8,7 @@ from .. import NOISE_TYPE_ITEMS
 from ... import utils
 
 
-class LuxCoreNodeTexBlenderWood(LuxCoreNodeTexture):
+class LuxCoreNodeTexBlenderWood(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Blender Wood"
     bl_width_default = 200
 

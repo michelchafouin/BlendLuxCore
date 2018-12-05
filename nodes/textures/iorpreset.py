@@ -1,13 +1,10 @@
-"""A BlendLuxCore node to provide index of refraction preset values for
-    LuxCoreRender in Blender"""
-# <pep8 compliant>
 import bpy
 from bpy.props import FloatProperty, StringProperty
 from .. import LuxCoreNodeTexture
 from ...operators import ior_presets
 
 
-class LuxCoreNodeTexIORPreset(LuxCoreNodeTexture):
+class LuxCoreNodeTexIORPreset(LuxCoreNodeTexture, bpy.types.Node):
     """ Index of Refraction Preset node """
     bl_label = "IOR Preset"
     bl_width_default = 180

@@ -1,3 +1,4 @@
+import bpy
 from bpy.props import FloatProperty, EnumProperty
 from .. import LuxCoreNodeMaterial
 from ..sockets import LuxCoreSocketFloat
@@ -12,7 +13,7 @@ class LuxCoreSocketReflection(LuxCoreSocketFloat):
     slider = True
 
 
-class LuxCoreNodeMatCarpaint(LuxCoreNodeMaterial):
+class LuxCoreNodeMatCarpaint(LuxCoreNodeMaterial, bpy.types.Node):
     """
     carpaint material node
 

@@ -1,9 +1,10 @@
+import bpy
 from bpy.props import FloatProperty, BoolProperty, FloatVectorProperty, EnumProperty
 from mathutils import Matrix
 from .. import LuxCoreNodeTexture
 
 
-class LuxCoreNodeTexMapping3D(LuxCoreNodeTexture):
+class LuxCoreNodeTexMapping3D(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "3D Mapping"
     bl_width_default = 260
 

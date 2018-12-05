@@ -1,8 +1,9 @@
+import bpy
 from bpy.props import FloatProperty, BoolProperty, EnumProperty
 from .. import LuxCoreNodeMaterial, Roughness
 from .. import utils
 
-class LuxCoreNodeMatMetal(LuxCoreNodeMaterial):
+class LuxCoreNodeMatMetal(LuxCoreNodeMaterial, bpy.types.Node):
     """metal material node"""
     bl_label = "Metal Material"
     bl_width_default = 200

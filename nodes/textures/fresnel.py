@@ -4,7 +4,7 @@ from .. import LuxCoreNodeTexture
 from ... import utils
 
 
-class LuxCoreNodeTexFresnel(LuxCoreNodeTexture):
+class LuxCoreNodeTexFresnel(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Fresnel"
     bl_width_default = 200
     

@@ -4,7 +4,7 @@ from .. import LuxCoreNodeMaterial, Roughness
 from .glossytranslucent import IOR_DESCRIPTION
 
 
-class LuxCoreNodeMatGlossy2(LuxCoreNodeMaterial):
+class LuxCoreNodeMatGlossy2(LuxCoreNodeMaterial, bpy.types.Node):
     bl_label = "Glossy Material"
     bl_width_default = 160
 

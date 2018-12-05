@@ -4,7 +4,7 @@ from ..output import LuxCoreNodeOutput, update_active
 from .. import utils
 
 
-class LuxCoreNodeVolOutput(LuxCoreNodeOutput):
+class LuxCoreNodeVolOutput(LuxCoreNodeOutput, bpy.types.Node):
     """
     Volume output node.
     This is where the export starts (if the output is active).

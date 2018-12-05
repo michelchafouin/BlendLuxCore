@@ -11,7 +11,7 @@ from ...utils import node as utils_node
 from ...ui import icons
 
 
-class LuxCoreNodeTexSmoke(LuxCoreNodeTexture):
+class LuxCoreNodeTexSmoke(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Smoke"
     bl_width_default = 200
 

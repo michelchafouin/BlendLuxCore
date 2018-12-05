@@ -1,7 +1,8 @@
+import bpy
 from .. import LuxCoreNodeMaterial
 
 
-class LuxCoreNodeMatNull(LuxCoreNodeMaterial):
+class LuxCoreNodeMatNull(LuxCoreNodeMaterial, bpy.types.Node):
     bl_label = "Null Material"
     bl_width_default = 160
 

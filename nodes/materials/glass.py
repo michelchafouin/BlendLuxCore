@@ -1,3 +1,4 @@
+import bpy
 from bpy.props import FloatProperty, BoolProperty
 from .. import LuxCoreNodeMaterial, Roughness
 from ..sockets import LuxCoreSocketFloat
@@ -35,7 +36,7 @@ class LuxCoreSocketCauchyC(LuxCoreSocketFloat):
         super().draw(context, layout, node, text)
 
 
-class LuxCoreNodeMatGlass(LuxCoreNodeMaterial):
+class LuxCoreNodeMatGlass(LuxCoreNodeMaterial, bpy.types.Node):
     """ Node for the three LuxCore materials glass, roughglass and archglass """
     bl_label = "Glass Material"
     bl_width_default = 160

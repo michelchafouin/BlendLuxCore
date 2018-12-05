@@ -1,9 +1,10 @@
+import bpy
 from bpy.props import EnumProperty, FloatProperty, IntProperty
 from .. import LuxCoreNodeTexture
 from .imagemap import NORMAL_SCALE_DESC
 
 
-class LuxCoreNodeTexNormalmap(LuxCoreNodeTexture):
+class LuxCoreNodeTexNormalmap(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Normalmap"
 
     scale: FloatProperty(name="Height", default=1, min=0, soft_max=5,

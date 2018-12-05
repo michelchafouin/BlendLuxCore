@@ -1,8 +1,9 @@
+import bpy
 from bpy.props import EnumProperty
 from .. import LuxCoreNodeTexture
 
 
-class LuxCoreNodeTexUV(LuxCoreNodeTexture):
+class LuxCoreNodeTexUV(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "UV Test"
 
     def init(self, context):

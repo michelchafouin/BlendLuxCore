@@ -1,9 +1,10 @@
+import bpy
 from bpy.props import EnumProperty
 from .. import LuxCoreNodeTexture
 from ...utils import node as utils_node
 
 
-class LuxCoreNodeTexObjectID(LuxCoreNodeTexture):
+class LuxCoreNodeTexObjectID(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Object ID"
     bl_width_default = 150
 

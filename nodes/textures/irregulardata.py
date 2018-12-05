@@ -1,3 +1,4 @@
+import bpy
 from bpy.props import StringProperty, BoolProperty
 from .. import LuxCoreNodeTexture
 from ...ui import icons
@@ -8,7 +9,7 @@ def convert(string):
     return [float(elem) for elem in separated]
 
 
-class LuxCoreNodeTexIrregularData(LuxCoreNodeTexture):
+class LuxCoreNodeTexIrregularData(LuxCoreNodeTexture, bpy.types.Node):
     bl_label = "Irregular Data"
 
     equal_length: BoolProperty(default=True)
