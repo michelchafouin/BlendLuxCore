@@ -25,7 +25,7 @@ def draw_uv_info(context, layout):
                 box = layout.box()
                 box.label(text="LuxCore only supports one UV map", icon=icons.INFO)
                 active_uv = find_active_uv(obj.data.uv_textures)
-                box.label('Active: "%s"' % active_uv.name, icon="GROUP_UVS")
+                box.label(text='Active: "%s"' % active_uv.name, icon="GROUP_UVS")
             elif len(obj.data.uv_textures) == 0:
                 row = layout.row()
                 warning_no_uvmap(row)
@@ -50,7 +50,7 @@ def draw_transmission_info(node, layout):
         # Note that this is an estimation.
         # We are for example not accounting for specular reflections
         transmitted = min(1 - kd_value, kt_value)
-        layout.label("Transmitted: %.2f" % transmitted, icon=icons.INFO)
+        layout.label(text="Transmitted: %.2f" % transmitted, icon=icons.INFO)
 
 
 def export_material_input(input, exporter, props):

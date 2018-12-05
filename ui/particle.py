@@ -64,7 +64,7 @@
 #                 if active_uv:
 #                     row = col.row()
 #                     row.label(text="UV Map:")
-#                     row.label(active_uv.name, icon="GROUP_UVS")
+#                     row.label(text=active_uv.name, icon="GROUP_UVS")
 #         else:
 #             col.prop_search(settings, "uv_map_name",
 #                             obj.data, "uv_textures",
@@ -89,7 +89,7 @@
 #                     if active_vcol_layer:
 #                         row = col.row()
 #                         row.label(text="Vertex Colors:")
-#                         row.label(active_vcol_layer.name, icon="GROUP_VCOL")
+#                         row.label(text=active_vcol_layer.name, icon="GROUP_VCOL")
 #             else:
 #                 col.prop_search(settings, "vertex_color_layer_name",
 #                                 obj.data, "vertex_colors",

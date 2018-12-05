@@ -16,9 +16,9 @@
 #
 #         row = self.layout.row(align=True)
 #         if errorlog.errors:
-#             row.label(str(len(errorlog.errors)), icon=icons.ERROR)
+#             row.label(text=str(len(errorlog.errors)), icon=icons.ERROR)
 #         if errorlog.warnings:
-#             row.label(str(len(errorlog.warnings)), icon=icons.WARNING)
+#             row.label(text=str(len(errorlog.warnings)), icon=icons.WARNING)
 #
 #     def draw(self, context):
 #         errorlog = context.scene.luxcore.errorlog
@@ -46,6 +46,6 @@
 #             if elem.count > 1:
 #                 text += str(elem.count) + "x"
 #
-#             row.label(elem.message, icon=icon)
+#             row.label(text=elem.message, icon=icon)
 #             op = row.operator("luxcore.copy_error_to_clipboard", icon=icons.COPY_TO_CLIPBOARD)
 #             op.message = elem.message

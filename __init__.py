@@ -60,14 +60,29 @@ bl_info = {
 #     nodes.volumes.unregister()
 #     # bpy.utils.unregister_module(__name__)
 
-from . import auto_load
+from . import auto_load, nodes, properties, ui
+from .nodes import materials, volumes, textures
 
 auto_load.init()
 
 
 def register():
     auto_load.register()
+    nodes.materials.register()
+    nodes.textures.register()
+    nodes.volumes.register()
+    ui.register()
+
+    properties.init()
+
+    from .utils.log import LuxCoreLog
+    pyluxcore.Init(LuxCoreLog.add)
+    print("BlendLuxCore registered (%s)" % pyluxcore.Version())
 
 
 def unregister():
     auto_load.unregister()
+    nodes.materials.unregister()
+    nodes.textures.unregister()
+    nodes.volumes.unregister()
+    print("BlendLuxCore unregistered")

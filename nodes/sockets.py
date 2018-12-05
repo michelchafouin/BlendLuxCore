@@ -49,7 +49,7 @@ class LuxCoreNodeSocket(NodeSocket):
         has_default = hasattr(self, "default_value") and self.default_value is not None
 
         if self.is_output or self.is_linked or not has_default:
-            layout.label(text)
+            layout.label(text=text)
 
             # Show a button that lets the user add a node for this socket instantly.
             # Sockets that only accept one node (e.g. volume, emission, fresnel) should have a default_node member

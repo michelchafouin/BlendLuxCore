@@ -112,7 +112,7 @@ class LuxCoreNodeTexBand(LuxCoreNodeTexture):
         for index, item in enumerate(self.ramp_items):
             row = layout.row(align=True)
 
-            split = row.split(align=True, percentage=0.55)
+            split = row.split(align=True, factor=0.55)
             split.prop(item, "offset", slider=True)
             split.prop(item, "value")
 

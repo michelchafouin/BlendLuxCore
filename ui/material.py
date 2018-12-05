@@ -44,19 +44,20 @@ class LUXCORE_PT_context_material(MaterialButtonsPanel, Panel):
                 row.operator("object.material_slot_select", text="Select")
                 row.operator("object.material_slot_deselect", text="Deselect")
 
-        split = layout.split(percentage=0.68)
+        split = layout.split(factor=0.68)
 
         if obj:
             # Note that we don't use layout.template_ID() because we can't
             # control the copy operator in that template.
             # So we mimic our own template_ID.
             row = split.row(align=True)
-            sub = row.split(align=True, percentage=1 / (context.region.width * 0.015))
+            sub = row.split(align=True, factor=1 / (context.region.width * 0.015))
             sub.operator("luxcore.material_select", icon=icons.MATERIAL, text="")
             row = sub.row(align=True)
             if obj.active_material:
                 row.prop(obj.active_material, "name", text="")
-                row.prop(obj.active_material, "use_fake_user", text="", toggle=True, icon="FONT_DATA")  # :^)
+                fake_user_icon = icons.FAKE_USER_ON if obj.active_material.use_fake_user else icons.FAKE_USER_OFF
+                row.prop(obj.active_material, "use_fake_user", text="", toggle=True, icon=fake_user_icon)
                 row.operator("luxcore.material_copy", text="", icon="COPY_ID")
                 text_new = ""
             else:
@@ -69,7 +70,7 @@ class LUXCORE_PT_context_material(MaterialButtonsPanel, Panel):
                 row.prop(slot, "link", text="")
             else:
                 row = split.row()
-                row.label()
+                row.label(text="")
         elif mat:
             split.template_ID(space, "pin_id")
             split.separator()
@@ -78,7 +79,7 @@ class LUXCORE_PT_context_material(MaterialButtonsPanel, Panel):
             if mat.luxcore.node_tree:
                 row = layout.row()
                 tree_name = utils.get_name_with_lib(mat.luxcore.node_tree)
-                row.label('Nodes: "%s"' % tree_name, icon="NODETREE")
+                row.label(text='Nodes: "%s"' % tree_name, icon="NODETREE")
                 row.operator("luxcore.material_show_nodetree", icon=icons.SHOW_NODETREE)
             else:
                 layout.operator("luxcore.mat_nodetree_new", icon="NODETREE", text="Use Material Nodes")
@@ -100,7 +101,7 @@ class LUXCORE_PT_material_presets(MaterialButtonsPanel, Panel):
 
         for category, presets in LUXCORE_OT_preset_material.categories.items():
             col = row.column()
-            col.label(category)
+            col.label(text=category)
 
             for preset in presets:
                 op = col.operator("luxcore.preset_material", text=preset)

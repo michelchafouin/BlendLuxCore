@@ -69,23 +69,23 @@ THETA_DESC = "Half angle in degrees. Larger values make the light source appear 
 
 
 def init():
-    bpy.types.Lamp.luxcore: PointerProperty(type=LuxCoreLightProps)
+    bpy.types.Light.luxcore: PointerProperty(type=LuxCoreLightProps)
 
 
 class LuxCoreLightProps(bpy.types.PropertyGroup):
     def update_image(self, context):
         self.image_user.update(self.image)
 
-        if getattr(context, "lamp", None):
-            # For spot lamp (toggle projection mode)
-            if context.lamp.type == "SPOT":
-                context.lamp.use_square = self.image is not None
+        if getattr(context, "light", None):
+            # For spot light (toggle projection mode)
+            if context.light.type == "SPOT":
+                context.light.use_square = self.image is not None
 
     def update_is_laser(self, context):
-        if getattr(context, "lamp", None):
-            # For area lamp (laser can't be rectangular)
+        if getattr(context, "light", None):
+            # For area light (laser can't be rectangular)
             if self.is_laser:
-                context.lamp.shape = "SQUARE"
+                context.light.shape = "SQUARE"
 
     ##############################################
     # BlendLuxCore specific properties needed to translate LuxCore light concepts to Blender

@@ -42,7 +42,7 @@ class LuxCoreNodeTexIrregularData(LuxCoreNodeTexture):
             layout.label(text="Both lists need the same number of values!", icon=icons.ERROR)
 
         if self.error:
-            layout.label(self.error, icon=icons.ERROR)
+            layout.label(text=self.error, icon=icons.ERROR)
 
     def sub_export(self, exporter, props, luxcore_name=None):
         definitions = {

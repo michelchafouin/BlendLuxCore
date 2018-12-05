@@ -17,7 +17,7 @@
 #     time_humanized = utils_ui.humanize_time(halt.time)
 #     row = layout.row()
 #     row.active = halt.use_time
-#     row.label(time_humanized, icon="TIME")
+#     row.label(text=time_humanized, icon="TIME")
 #
 #     row = layout.row()
 #     row.prop(halt, "use_samples")
@@ -33,7 +33,7 @@
 #         samples_per_pass = aa**2
 #
 #         if config.tile.multipass_enable and halt.samples % samples_per_pass != 0:
-#             layout.label("Should be a multiple of %d" % samples_per_pass, icon=icons.WARNING)
+#             layout.label(text="Should be a multiple of %d" % samples_per_pass, icon=icons.WARNING)
 #
 #         if context.scene.luxcore.denoiser.enabled:
 #             # Denoiser needs one warmup pass plus at least one sample collecting pass
@@ -42,7 +42,7 @@
 #             min_samples = samples_per_pass
 #
 #         if halt.samples < min_samples:
-#             layout.label("Use at least %d samples!" % min_samples, icon=icons.WARNING)
+#             layout.label(text="Use at least %d samples!" % min_samples, icon=icons.WARNING)
 #
 #         if not config.tile.multipass_enable and halt.samples > min_samples:
 #             layout.label(text="Samples halt condition overriden by disabled multipass", icon=icons.INFO)
@@ -97,7 +97,7 @@
 #
 #             col = layout.column(align=True)
 #             row = col.row()
-#             split = row.split(percentage=0.8)
+#             split = row.split(factor=0.8)
 #             split.label(text="Render Layers Overriding Halt Conditions:")
 #             op = split.operator("luxcore.switch_space_data_context",
 #                                 text="Show", icon="RENDERLAYERS")
@@ -116,10 +116,10 @@
 #
 #                 if conditions:
 #                     text = layer.name + ": " + ", ".join(conditions)
-#                     col.label(text, icon="RENDERLAYERS")
+#                     col.label(text=text, icon="RENDERLAYERS")
 #                 else:
 #                     text = layer.name + ": No Halt Condition!"
-#                     col.label(text, icon=icons.ERROR)
+#                     col.label(text=text, icon=icons.ERROR)
 #
 #
 # class LUXCORE_RENDERLAYER_PT_halt_conditions(Panel, RenderLayerButtonsPanel):

@@ -65,18 +65,18 @@
 #             box.label(text="Denoised Image Stats", icon="IMAGE_DATA")
 #             box = col.box()
 #             subcol = box.column()
-#             subcol.label("Samples: %d" % entry.samples)
-#             subcol.label("Render Time: " + utils_ui.humanize_time(entry.elapsed_render_time))
-#             subcol.label("Denoising Duration: " + utils_ui.humanize_time(entry.elapsed_denoiser_time))
+#             subcol.label(text="Samples: %d" % entry.samples)
+#             subcol.label(text="Render Time: " + utils_ui.humanize_time(entry.elapsed_render_time))
+#             subcol.label(text="Denoising Duration: " + utils_ui.humanize_time(entry.elapsed_denoiser_time))
 #
 #             box = col.box()
 #             subcol = box.column()
 #             subcol.label(text="Last Denoiser Settings:", icon="UI")
 #             subcol.label(text="Remove Fireflies: " + ("Enabled" if entry.filter_spikes else "Disabled"))
-#             subcol.label("Histogram Distance Threshold: " + str(entry.hist_dist_thresh))
-#             subcol.label("Search Window Radius: " + str(entry.search_window_radius))
-#             subcol.label("Scales: " + str(entry.scales))
-#             subcol.label("Patch Radius: " + str(entry.patch_radius))
+#             subcol.label(text="Histogram Distance Threshold: " + str(entry.hist_dist_thresh))
+#             subcol.label(text="Search Window Radius: " + str(entry.search_window_radius))
+#             subcol.label(text="Scales: " + str(entry.scales))
+#             subcol.label(text="Patch Radius: " + str(entry.patch_radius))
 #
 #
 # class LUXCORE_IMAGE_PT_statistics(Panel, LuxCoreImagePanel):
@@ -135,11 +135,11 @@
 #
 #             col = split.column()
 #             for stat in stat_list:
-#                 col.label(stat.name)
+#                 col.label(text=stat.name)
 #
 #             col = split.column()
 #             for stat in stat_list:
-#                 col.label(str(stat))
+#                 col.label(text=str(stat))
 #
 #     def draw_stat_comparison(self, context, stats, other_stats, layout):
 #         statistics_collection = context.scene.luxcore.statistics
@@ -149,7 +149,7 @@
 #
 #         # Header
 #         split = layout.split()
-#         split.label()
+#         split.label(text="")
 #         split.prop(statistics_collection, "first_slot", text="")
 #         split.prop(statistics_collection, "second_slot", text="")
 #
@@ -163,16 +163,16 @@
 #             # The column for the labels
 #             col = split.column()
 #             for stat, _ in comparison_stat_list:
-#                 col.label(stat.name)
+#                 col.label(text=stat.name)
 #
 #             # The column for the first stats
 #             col = split.column()
 #             # col.prop(statistics_collection, "first_slot", text="")
 #             for stat, other_stat in comparison_stat_list:
-#                 col.label(str(stat), icon=self.icon(stat, other_stat))
+#                 col.label(text=str(stat), icon=self.icon(stat, other_stat))
 #
 #             # The column for the other stats
 #             col = split.column()
 #             # col.prop(statistics_collection, "second_slot", text="")
 #             for stat, other_stat in comparison_stat_list:
-#                 col.label(str(other_stat), icon=self.icon(other_stat, stat))
+#                 col.label(text=str(other_stat), icon=self.icon(other_stat, stat))

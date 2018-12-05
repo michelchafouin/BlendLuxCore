@@ -16,7 +16,7 @@
 #         obj = context.object
 #         space = context.space_data
 #
-#         split = layout.split(percentage=0.65)
+#         split = layout.split(factor=0.65)
 #         if obj:
 #             split.template_ID(obj, "data")
 #             split.separator()
@@ -124,7 +124,7 @@
 #             if len(context.scene.render.layers) > 1 and tonemapper.is_automatic():
 #                 name = "Auto" if tonemapper.type == "TONEMAP_LINEAR" else "Reinhard"
 #                 msg = name + " and multiple renderlayers will cause brightness difference!"
-#                 box.label(msg, icon=icons.WARNING)
+#                 box.label(text=msg, icon=icons.WARNING)
 #
 #         # Bloom settings
 #         bloom = pipeline.bloom

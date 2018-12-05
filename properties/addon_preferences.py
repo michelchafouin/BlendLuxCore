@@ -17,4 +17,4 @@ class LuxCoreAddonPreferences(AddonPreferences):
         row.label(text="Update or downgrade:")
         row.operator("luxcore.change_version")
         # Add empty space to the right of the button
-        row.label()
+        row.label(text="")

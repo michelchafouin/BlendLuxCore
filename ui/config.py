@@ -20,7 +20,7 @@
 #         # Filesaver
 #         # TODO: we might want to move this to a more appropriate place later
 #         row = layout.row()
-#         split = row.split(percentage=0.7)
+#         split = row.split(factor=0.7)
 #         split.prop(config, "use_filesaver")
 #         if config.use_filesaver:
 #             split.prop(config, "filesaver_format")
@@ -98,7 +98,7 @@
 #
 #         # Filter settings
 #         if denoiser.enabled and config.engine == "BIDIR" and config.filter != "NONE":
-#             layout.label('Set filter to "None" to reduce blurriness when using the denoiser with Bidir', icon=icons.WARNING)
+#             layout.label(text='Set filter to "None" to reduce blurriness when using the denoiser with Bidir', icon=icons.WARNING)
 #         row = layout.row()
 #         row.prop(config, "filter")
 #         sub = row.row()

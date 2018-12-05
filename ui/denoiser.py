@@ -15,7 +15,7 @@
 #         if config.sampler == "METROPOLIS" and not config.use_tiles:
 #             col.label(text="Metropolis sampler can lead to artifacts!", icon=icons.WARNING)
 #         if config.engine == "BIDIR" and config.filter != "NONE":
-#             col.label('Set filter to "None" to reduce blurriness', icon=icons.WARNING)
+#             col.label(text='Set filter to "None" to reduce blurriness', icon=icons.WARNING)
 #
 #     sub = col.column()
 #     # The user should not be able to request a refresh when denoiser is disabled
