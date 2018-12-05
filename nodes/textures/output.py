@@ -4,7 +4,7 @@ from ..output import LuxCoreNodeOutput, update_active
 from ... import utils
 
 
-class LuxCoreNodeTexOutput(LuxCoreNodeOutput):
+class LuxCoreNodeTexOutput(LuxCoreNodeOutput, bpy.types.Node):
     """
     Texture output node.
     This is where the export starts (if the output is active).

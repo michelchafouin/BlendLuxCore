@@ -25,7 +25,7 @@ DLS_DISABLED_DESC = (
 )
 
 
-class LuxCoreNodeMatEmission(LuxCoreNode):
+class LuxCoreNodeMatEmission(LuxCoreNode, bpy.types.Node):
     """
     Emission node.
 
