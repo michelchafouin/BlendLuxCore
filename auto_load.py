@@ -101,6 +101,7 @@ def iter_classes_to_register(modules):
     for cls in get_classes_in_modules(modules):
         if any(base in base_types for base in cls.__bases__):
             if not getattr(cls, "is_registered", False):
+                print(">> Registered:", cls.__name__)
                 yield cls
         elif object not in cls.__bases__:
             print("Not registered:", cls, "bases:", cls.__bases__ if len(cls.__bases__) > 1 else cls.__bases__[0])
