@@ -4,10 +4,11 @@ from ..draw.final import FrameBufferFinal
 from ..utils import render as utils_render
 
 
-def render(engine, scene):
+def render(engine, depsgraph):
+    scene = depsgraph.scene_eval
     print("=" * 50)
-    scene.luxcore.errorlog.clear()
-    scene.luxcore.denoiser_log.clear()
+    # scene.luxcore.errorlog.clear()  # TODO 2.8
+    # scene.luxcore.denoiser_log.clear()  # TODO 2.8
     render_slot_stats = scene.luxcore.statistics.get_active()
 
     if utils.is_valid_camera(scene.camera):
@@ -15,7 +16,7 @@ def render(engine, scene):
         if len(scene.render.layers) > 1 and tonemapper.is_automatic():
             msg = ("Using an automatic tonemapper with multiple "
                    "renderlayers will result in brightness differences")
-            scene.luxcore.errorlog.add_warning(msg)
+            # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
 
     _check_halt_conditions(engine, scene)
 
@@ -212,7 +213,7 @@ def _check_halt_conditions(engine, scene):
 
                 if not has_halt_condition:
                     msg = 'Halt condition missing for render layer "%s"' % layer.name
-                    scene.luxcore.errorlog.add_error(msg)
+                    # scene.luxcore.errorlog.add_error(msg)  # TODO 2.8
             else:
                 is_halt_enabled = False
 

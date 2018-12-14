@@ -29,6 +29,6 @@ def convert(exporter, scene):
             props.Set(pyluxcore.Property("scene.world.volume.default", luxcore_name))
         except Exception as error:
             msg = 'World "%s": %s' % (world.name, error)
-            scene.luxcore.errorlog.add_warning(msg)
+            # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
 
     return props

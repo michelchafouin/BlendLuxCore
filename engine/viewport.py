@@ -27,7 +27,7 @@ def view_update(engine, context, changes=None):
             engine.exporter = export.Exporter(scene)
 
             engine.update_stats("Error: ", str(error))
-            scene.luxcore.errorlog.add_error(error)
+            # scene.luxcore.errorlog.add_error(error)  # TODO 2.8
 
             import traceback
             traceback.print_exc()

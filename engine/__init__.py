@@ -70,39 +70,39 @@ class LuxCoreRenderEngine(bpy.types.RenderEngine):
         # elif "BCD progress" in msg:  # TODO For some weird reason this does not work
         #     self.update_stats("", msg)
 
-    def render(self, scene):
+    def render(self, depsgraph):
         if self.is_preview:
-            self.render_preview(scene)
+            self.render_preview(depsgraph)
         else:
-            self.render_final(scene)
+            self.render_final(depsgraph)
 
-    def render_final(self, scene):
+    def render_final(self, depsgraph):
         try:
             LuxCoreRenderEngine.final_running = True
-            scene.luxcore.display.paused = False
+            # scene.luxcore.display.paused = False  # TODO 2.8
             TileStats.reset()
             LuxCoreLog.add_listener(self.log_listener)
-            final.render(self, scene)
+            final.render(self, depsgraph)
         except Exception as error:
             self.report({"ERROR"}, str(error))
             self.error_set(str(error))
             import traceback
             traceback.print_exc()
             # Add error to error log so the user can inspect and copy/paste it
-            scene.luxcore.errorlog.add_error(error)
+            # scene.luxcore.errorlog.add_error(error)  # TODO 2.8
 
             # Clean up
             del self.session
             self.session = None
         finally:
-            scene.luxcore.active_layer_index = -1
+            # scene.luxcore.active_layer_index = -1  # TODO 2.8
             LuxCoreRenderEngine.final_running = False
             TileStats.reset()
             LuxCoreLog.remove_listener(self.log_listener)
 
-    def render_preview(self, scene):
+    def render_preview(self, depsgraph):
         try:
-            preview.render(self, scene)
+            preview.render(self, depsgraph)
         except Exception as error:
             import traceback
             traceback.print_exc()

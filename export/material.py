@@ -18,14 +18,14 @@ def convert(exporter, material, scene, context):
         node_tree = material.luxcore.node_tree
         if node_tree is None:
             msg = 'Material "%s": Missing node tree' % material.name
-            scene.luxcore.errorlog.add_warning(msg)
+            # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
             return fallback(luxcore_name)
 
         active_output = get_active_output(node_tree)
 
         if active_output is None:
             msg = 'Node tree "%s": Missing active output node' % node_tree.name
-            scene.luxcore.errorlog.add_warning(msg)
+            # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
             return fallback(luxcore_name)
 
         # Now export the material node tree, starting at the output node
@@ -34,7 +34,7 @@ def convert(exporter, material, scene, context):
         return luxcore_name, props
     except Exception as error:
         msg = 'Material "%s": %s' % (material.name, error)
-        scene.luxcore.errorlog.add_warning(msg)
+        # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
         import traceback
         traceback.print_exc()
         return fallback()

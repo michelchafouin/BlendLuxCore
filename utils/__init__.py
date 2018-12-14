@@ -139,7 +139,7 @@ def get_worldscale(scene, as_scalematrix=True):
 def get_scaled_to_world(matrix, scene):
     matrix = matrix.copy()
     sm = get_worldscale(scene)
-    matrix *= sm
+    matrix @= sm
     ws = get_worldscale(scene, as_scalematrix=False)
     matrix[0][3] *= ws
     matrix[1][3] *= ws
@@ -385,9 +385,10 @@ def is_obj_visible(obj, scene, context=None, is_dupli=False):
         # so we create a mock list here
         exclude_layers = [False] * 20
 
-    on_visible_layer = False
-    for lv in [ol and sl and not el for ol, sl, el in zip(obj.layers, scene.layers, exclude_layers)]:
-        on_visible_layer |= lv
+    on_visible_layer = True  # TODO 2.8
+    # on_visible_layer = False
+    # for lv in [ol and sl and not el for ol, sl, el in zip(obj.layers, scene.layers, exclude_layers)]:
+    #     on_visible_layer |= lv
 
     hidden_in_outliner = obj.hide if context else obj.hide_render
     return on_visible_layer and not hidden_in_outliner

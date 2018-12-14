@@ -3,7 +3,7 @@ import bpy
 
 
 @contextmanager
-def convert(obj, context, scene):
+def convert(obj, context, scene, depsgraph):
     """
     Create a temporary mesh from an object.
     The mesh is guaranteed to be removed when the calling block ends.
@@ -20,15 +20,15 @@ def convert(obj, context, scene):
     mesh = None
 
     try:
-        apply_modifiers = True
-        modifier_mode = "PREVIEW" if context else "RENDER"
-        mesh = obj.to_mesh(scene, apply_modifiers, modifier_mode, calc_tessface=False)
+        # TODO 2.8 - do we need calc_undeformed?
+        # mesh = obj.to_mesh(scene, apply_modifiers, modifier_mode, calc_tessface=False)
+        mesh = obj.to_mesh(depsgraph=depsgraph, apply_modifiers=True)
 
         if mesh:
             if mesh.use_auto_smooth and not mesh.has_custom_normals:
                 mesh.calc_normals()
                 mesh.split_faces()
-            mesh.calc_tessface()
+            mesh.calc_loop_triangles()
 
         yield mesh
     finally:

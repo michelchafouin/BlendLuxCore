@@ -28,7 +28,7 @@ class LuxCoreNodeVolOutput(LuxCoreNodeOutput, bpy.types.Node):
         else:
             # We need a fallback (black volume)
             msg = 'Node "%s" in tree "%s": No volume attached' % (self.name, self.id_data.name)
-            exporter.scene.luxcore.errorlog.add_warning(msg)
+            # exporter.# scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
 
             helper_prefix = "scene.volumes." + luxcore_name + "."
             helper_defs = {

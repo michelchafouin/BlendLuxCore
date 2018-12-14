@@ -99,7 +99,8 @@ def convert(exporter, scene, context=None, engine=None):
                                                      group_id, exporter.lightgroup_cache)
 
             if not any([group.enabled for group in scene.luxcore.lightgroups.get_all_groups()]):
-                scene.luxcore.errorlog.add_warning("All light groups are disabled.")
+                # scene.luxcore.errorlog.add_warning("All light groups are disabled.")  # TODO 2.8
+                pass
 
             # Denoiser imagepipeline
             if scene.luxcore.denoiser.enabled:
@@ -114,7 +115,7 @@ def convert(exporter, scene, context=None, engine=None):
         import traceback
         traceback.print_exc()
         msg = "AOVs: %s" % error
-        scene.luxcore.errorlog.add_warning(msg)
+        # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
         return pyluxcore.Properties()
 
 
@@ -161,7 +162,7 @@ def _make_imagepipeline(props, context, scene, output_name, pipeline_index, outp
         # We can not work with an automatic tonemapper because
         # every AOV will differ in brightness
         msg = "Use a non-automatic tonemapper to get tonemapped AOVs"
-        scene.luxcore.errorlog.add_warning(msg)
+        # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
         return pipeline_index
 
     prefix = "film.imagepipelines." + str(pipeline_index) + "."

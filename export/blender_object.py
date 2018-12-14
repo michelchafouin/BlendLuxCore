@@ -7,7 +7,7 @@ from . import material, mesh_converter
 from .light import convert_lamp
 
 
-def convert(exporter, obj, scene, context, luxcore_scene,
+def convert(exporter, obj, scene, context, depsgraph, luxcore_scene,
             exported_object=None, update_mesh=False,
             dupli_suffix="", dupli_matrix=None, duplicator=None):
     """
@@ -17,8 +17,9 @@ def convert(exporter, obj, scene, context, luxcore_scene,
     if not utils.is_obj_visible(obj, scene, context, is_dupli=dupli_suffix):
         return pyluxcore.Properties(), None
 
-    if obj.is_duplicator and not utils.is_duplicator_visible(obj):
-        return pyluxcore.Properties(), None
+    # TODO 2.8
+    # if obj.is_duplicator and not utils.is_duplicator_visible(obj):
+    #     return pyluxcore.Properties(), None
 
     if obj.type == "LAMP":
         return convert_lamp(exporter, obj, scene, context, luxcore_scene, dupli_suffix, dupli_matrix)
@@ -60,8 +61,8 @@ def convert(exporter, obj, scene, context, luxcore_scene,
                 update_shared_mesh = True
 
         if update_mesh:
-            with mesh_converter.convert(obj, context, scene) as mesh:
-                if mesh and mesh.tessfaces:
+            with mesh_converter.convert(obj, context, scene, depsgraph) as mesh:
+                if mesh and mesh.loop_triangles:
                     mesh_definitions = _convert_mesh_to_shapes(luxcore_name, mesh, luxcore_scene, mesh_transform)
                 else:
                     # No mesh data. Happens e.g. on helper curves, so it is completely normal, don't warn about it.
@@ -82,7 +83,7 @@ def convert(exporter, obj, scene, context, luxcore_scene,
         return props, ExportedObject(mesh_definitions, luxcore_name)
     except Exception as error:
         msg = 'Object "%s": %s' % (obj.name, error)
-        scene.luxcore.errorlog.add_warning(msg)
+        # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
         import traceback
         traceback.print_exc()
         return pyluxcore.Properties(), None
@@ -105,11 +106,11 @@ def define_from_mesh_defs(mesh_definitions, scene, context, exporter, obj, props
                 if mat is None:
                     # Note: material.convert returned the fallback material in this case
                     msg = 'Object "%s": No material attached to slot %d' % (obj.name, material_index)
-                    scene.luxcore.errorlog.add_warning(msg)
+                    # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
             else:
                 # The object has no material slots
                 msg = 'Object "%s": No material defined' % obj.name
-                scene.luxcore.errorlog.add_warning(msg)
+                # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
                 # Use fallback material
                 lux_mat_name, mat_props = material.fallback()
 
@@ -170,22 +171,26 @@ def _define_luxcore_object(props, lux_object_name, lux_shape_name, lux_material_
 
 
 def _convert_mesh_to_shapes(name, mesh, luxcore_scene, mesh_transform):
-    faces = mesh.tessfaces[0].as_pointer()
+    faces = mesh.loop_triangles[0].as_pointer()
     vertices = mesh.vertices[0].as_pointer()
 
-    uv_textures = mesh.tessface_uv_textures
-    active_uv = utils.find_active_uv(uv_textures)
-    if active_uv and active_uv.data:
-        texCoords = active_uv.data[0].as_pointer()
-    else:
-        texCoords = 0
+    # TODO 2.8
+    texCoords = 0
+    vertexColors = 0
+    # uv_textures = mesh.tessface_uv_textures
+    # active_uv = utils.find_active_uv(uv_textures)
+    # if active_uv and active_uv.data:
+    #     texCoords = active_uv.data[0].as_pointer()
+    # else:
+    #     texCoords = 0
+    #
+    # vertex_colors = mesh.tessface_vertex_colors
+    # active_vertcol = utils.find_active_vertex_color_layer(vertex_colors)
+    # if active_vertcol and active_vertcol.data:
+    #     vertexColors = active_vertcol.data[0].as_pointer()
+    # else:
+    #     vertexColors = 0
 
-    vertex_colors = mesh.tessface_vertex_colors
-    active_vertcol = utils.find_active_vertex_color_layer(vertex_colors)
-    if active_vertcol and active_vertcol.data:
-        vertexColors = active_vertcol.data[0].as_pointer()
-    else:
-        vertexColors = 0
-
-    return luxcore_scene.DefineBlenderMesh(name, len(mesh.tessfaces), faces, len(mesh.vertices),
-                                           vertices, texCoords, vertexColors, mesh_transform)
+    # TODO 2.8: fix C++ code, currently crashes Blender
+    # return luxcore_scene.DefineBlenderMesh(name, len(mesh.loop_triangles), faces, len(mesh.vertices),
+    #                                        vertices, texCoords, vertexColors, mesh_transform)

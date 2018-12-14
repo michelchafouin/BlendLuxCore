@@ -125,7 +125,7 @@ class LuxCoreNodeMatEmission(LuxCoreNode, bpy.types.Node):
                 light.export_ies(definitions, self.ies, self.id_data.library, is_meshlight=True)
             except OSError as error:
                 msg = 'Node "%s" in tree "%s": %s' % (self.name, self.id_data.name, error)
-                exporter.scene.luxcore.errorlog.add_warning(msg)
+                # exporter.# scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
 
     def sub_export(self, exporter, props, luxcore_name=None):
         raise NotImplementedError("This node uses a special export method.")

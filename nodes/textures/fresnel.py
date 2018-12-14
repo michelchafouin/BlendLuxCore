@@ -86,7 +86,7 @@ class LuxCoreNodeTexFresnel(LuxCoreNodeTexture, bpy.types.Node):
                 # Fallback, file not found
                 error = 'Could not find .nk file at path "%s"' % self.filepath
                 msg = 'Node "%s" in tree "%s": %s' % (self.name, self.id_data.name, error)
-                exporter.scene.luxcore.errorlog.add_warning(msg)
+                # exporter.# scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
 
                 definitions = {
                     "type": "fresnelcolor",

@@ -75,7 +75,7 @@ class LuxCoreNodeTexSmoke(LuxCoreNodeTexture, bpy.types.Node):
         if not self.domain:
             error = "No Domain object selected."
             msg = 'Node "%s" in tree "%s": %s' % (self.name, self.id_data.name, error)
-            exporter.scene.luxcore.errorlog.add_warning(msg)
+            # exporter.scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
 
             definitions = {
                 "type": "constfloat3",

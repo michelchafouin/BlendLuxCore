@@ -26,7 +26,9 @@ def no_log_output(message):
     pass
 
 
-def render(engine, scene):
+def render(engine, depsgraph):
+    scene = depsgraph.scene_eval
+
     width, height = utils.calc_filmsize(scene)
 
     if max(width, height) <= 96:
@@ -38,7 +40,7 @@ def render(engine, scene):
 
     if preview_type == PreviewType.MATERIAL:
         engine.exporter = export.Exporter(scene)
-        engine.session = _export_mat_scene(engine.exporter, obj, scene)
+        engine.session = _export_mat_scene(engine.exporter, obj, scene, depsgraph)
     else:
         print("Unsupported preview type")
         return enable_log_output()
@@ -76,7 +78,7 @@ def enable_log_output():
     pyluxcore.SetLogHandler(LuxCoreLog.add)
 
 
-def _export_mat_scene(exporter, obj, scene):
+def _export_mat_scene(exporter, obj, scene, depsgraph):
     # The diameter that the preview objects should have, in meters
     size = obj.active_material.luxcore.preview.size
     worldscale = size / DEFAULT_SPHERE_SIZE
@@ -101,7 +103,7 @@ def _export_mat_scene(exporter, obj, scene):
     if is_plane_scene:
         _export_plane_scene(exporter, scene, obj.active_material, scene_props, luxcore_scene)
     else:
-        _convert_obj(exporter, obj, scene, luxcore_scene, scene_props)
+        _convert_obj(exporter, obj, scene, depsgraph, luxcore_scene, scene_props)
 
     # Lights (either two area lights or a sun+sky setup)
     _create_lights(scene, luxcore_scene, scene_props, is_world_sphere)
@@ -213,7 +215,7 @@ def _create_area_light(scene, luxcore_scene, props, name, color, position, rotat
     transform_matrix[1][3] = position[1]
     transform_matrix[2][3] = position[2]
 
-    mat = transform_matrix * rotation_matrix * scale_matrix
+    mat = transform_matrix @ rotation_matrix @ scale_matrix
     transform = utils.matrix_to_list(mat, scene, apply_worldscale=True)
 
     # add mesh
@@ -345,8 +347,8 @@ def _create_config(scene, is_world_sphere):
     return utils.create_props(prefix, definitions)
 
 
-def _convert_obj(exporter, obj, scene, luxcore_scene, props):
-    obj_props, exported_obj = export.blender_object.convert(exporter, obj, scene, None, luxcore_scene, update_mesh=True)
+def _convert_obj(exporter, obj, scene, depsgraph, luxcore_scene, props):
+    obj_props, exported_obj = export.blender_object.convert(exporter, obj, scene, None, depsgraph, luxcore_scene, update_mesh=True)
 
     for psys in obj.particle_systems:
         settings = psys.settings
@@ -361,8 +363,7 @@ def _convert_obj(exporter, obj, scene, luxcore_scene, props):
 
 def _get_preview_settings(scene):
     # Iterate through the preview scene, finding objects with materials attached
-    objects = [o for o in scene.objects
-               if o.is_visible(scene) and not o.hide_render and o.name.startswith("preview")]
+    objects = [o for o in scene.objects if o.name.startswith("preview")]
 
     if objects:
         return PreviewType.MATERIAL, objects[0]

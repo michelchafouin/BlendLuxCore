@@ -168,7 +168,7 @@ class LuxCoreNodeTexImagemap(LuxCoreNodeTexture, bpy.types.Node):
             filepath = ImageExporter.export(self.image, self.image_user, exporter.scene)
         except OSError as error:
             msg = 'Node "%s" in tree "%s": %s' % (self.name, self.id_data.name, error)
-            exporter.scene.luxcore.errorlog.add_warning(msg)
+            # exporter.# scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
             return [1, 0, 1]
 
         uvscale, uvrotation, uvdelta = self.inputs["2D Mapping"].export(exporter, props)

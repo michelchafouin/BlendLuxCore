@@ -175,7 +175,7 @@ class Exporter(object):
         light_count = luxcore_scene.GetLightCount()
         if light_count > 1000:
             msg = "The scene contains a lot of light sources (%d), performance might suffer" % light_count
-            scene.luxcore.errorlog.add_warning(msg)
+            # scene.luxcore.errorlog.add_warning(msg)  # TODO 2.8
         if stats:
             stats.light_count.value = light_count
 
@@ -266,14 +266,14 @@ class Exporter(object):
                 props = self._update_scene(context, changes, luxcore_scene)
                 luxcore_scene.Parse(props)
             except Exception as error:
-                context.scene.luxcore.errorlog.add_error(error)
+                # context.scene.luxcore.errorlog.add_error(error)  # TODO 2.8
                 import traceback
                 traceback.print_exc()
 
             try:
                 session.EndSceneEdit()
             except RuntimeError as error:
-                context.scene.luxcore.errorlog.add_error(error)
+                # context.scene.luxcore.errorlog.add_error(error)  # TODO 2.8
                 # Probably no light source, save ourselves by adding one (otherwise a crash happens)
                 props = pyluxcore.Properties()
                 props.Set(pyluxcore.Property("scene.lights.__SAVIOR__.type", "constantinfinite"))
