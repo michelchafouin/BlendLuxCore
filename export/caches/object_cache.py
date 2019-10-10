@@ -5,6 +5,7 @@ from .. import mesh_converter
 from ..hair import convert_hair
 from .exported_data import ExportedObject
 from .. import light
+from array import array
 
 MESH_OBJECTS = {"MESH", "CURVE", "SURFACE", "META", "FONT"}
 EXPORTABLE_OBJECTS = MESH_OBJECTS | {"LIGHT"}
@@ -44,25 +45,112 @@ def get_material(obj, material_index, exporter, depsgraph, is_viewport_render):
         lux_mat_name, mat_props = material.fallback()
         return lux_mat_name, mat_props, False
 
+
+class Duplis:
+    def __init__(self, exported_obj, matrix, object_id):
+        self.exported_obj = exported_obj
+        self.matrices = matrix
+        self.object_ids = [object_id]
+
+    def add(self, matrix, object_id):
+        self.matrices += matrix
+        self.object_ids.append(object_id)
+
+    def get_count(self):
+        return len(self.object_ids)
+
+
 class ObjectCache2:
     def __init__(self):
         self.exported_objects = {}
         self.exported_meshes = {}
 
     def first_run(self, exporter, depsgraph, view_layer, engine, luxcore_scene, scene_props, is_viewport_render):
-        # TODO use luxcore_scene.DuplicateObjects for instances
-        for index, dg_obj_instance in enumerate(depsgraph.object_instances, start=1):
-            obj = dg_obj_instance.instance_object if dg_obj_instance.is_instance else dg_obj_instance.object
-            if not (self._is_visible(dg_obj_instance, obj) or obj.visible_get(view_layer=view_layer)):
-                continue
+        # TODO cleanup, support object_ids in DuplicateObject()
+        instances = {}
+        dupli_props = pyluxcore.Properties()
 
-            self._convert_obj(exporter, dg_obj_instance, obj, depsgraph,
-                              luxcore_scene, scene_props, is_viewport_render)
-            if engine:
-                # Objects are the most expensive to export, so they dictate the progress
-                # engine.update_progress(index / obj_amount)
-                if engine.test_break():
-                    return False
+        for dg_obj_instance in depsgraph.object_instances:
+            if dg_obj_instance.is_instance:
+                obj = dg_obj_instance.instance_object
+                transformation = utils.matrix_to_list(dg_obj_instance.matrix_world)
+                object_id = 0
+
+                try:
+                    instances[obj].add(transformation, object_id)
+                except KeyError:
+                    # Fresh export (TODO check first if mesh already exported)
+                    use_instancing = True
+                    mesh_key = self._get_mesh_key(obj, use_instancing, is_viewport_render)
+                    transform = None
+                    exported_mesh = mesh_converter.convert(obj, mesh_key, depsgraph, luxcore_scene,
+                                                           is_viewport_render, use_instancing, transform)
+                    self.exported_meshes[mesh_key] = exported_mesh
+
+                    # Create object
+                    exported_obj = None
+                    if exported_mesh:
+                        mat_names = []
+                        for idx, (shape_name, mat_index) in enumerate(exported_mesh.mesh_definitions):
+                            lux_mat_name, mat_props, use_pointiness = get_material(obj, mat_index, exporter, depsgraph,
+                                                                                   is_viewport_render)
+                            dupli_props.Set(mat_props)
+                            mat_names.append(lux_mat_name)
+
+                            if use_pointiness:
+                                # Replace shape definition with pointiness shape
+                                pointiness_shape = shape_name + "_pointiness"
+                                prefix = "scene.shapes." + pointiness_shape + "."
+                                dupli_props.Set(pyluxcore.Property(prefix + "type", "pointiness"))
+                                dupli_props.Set(pyluxcore.Property(prefix + "source", shape_name))
+                                exported_mesh.mesh_definitions[idx] = [pointiness_shape, mat_index]
+
+                        if obj.luxcore.id == -1:
+                            obj_id = utils.make_object_id(dg_obj_instance)
+                        else:
+                            obj_id = obj.luxcore.id
+
+                        obj_key = utils.make_key_from_instance(dg_obj_instance)
+                        # TODO use identity matrix for transform instead of None?
+                        exported_obj = ExportedObject(obj_key, exported_mesh.mesh_definitions, mat_names,
+                                                      transform, obj.luxcore.visible_to_camera, obj_id)
+                        dupli_props.Set(exported_obj.get_props())
+
+                    # What I really wanted to do
+                    instances[obj] = Duplis(exported_obj, transformation, object_id)
+            else:
+                obj = dg_obj_instance.object
+                if not (self._is_visible(dg_obj_instance, obj) or obj.visible_get(view_layer=view_layer)):
+                    continue
+
+                self._convert_obj(exporter, dg_obj_instance, obj, depsgraph,
+                                  luxcore_scene, scene_props, is_viewport_render)
+                if engine:
+                    # Objects are the most expensive to export, so they dictate the progress
+                    # engine.update_progress(index / obj_amount)
+                    if engine.test_break():
+                        return False
+
+        # Need to parse so we have the dupli objects available for DuplicateObject
+        luxcore_scene.Parse(dupli_props)
+
+        for obj, duplis in instances.items():
+            print("obj", obj.name, "has", duplis.get_count(), "instances")
+
+            for part in duplis.exported_obj.parts:
+                src_name = part.lux_obj
+                dst_name = src_name + "dupli"
+                transformations = array("f", duplis.matrices)
+                object_ids = array("I", duplis.object_ids)
+                luxcore_scene.DuplicateObject(src_name, dst_name, duplis.get_count(), transformations, object_ids)
+
+                # TODO: support steps and times (motion blur)
+                # steps = 0 # TODO
+                # times = array("f", [])
+                # luxcore_scene.DuplicateObject(src_name, dst_name, count, steps, times, transformations)
+
+                # Delete the object we used for duplication, we don't want it to show up in the scene
+                luxcore_scene.DeleteObject(src_name)
 
         self._debug_info()
         return True
