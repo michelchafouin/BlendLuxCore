@@ -71,6 +71,7 @@ class LUXCORE_OT_convert_to_v23(bpy.types.Operator):
                 if emission_node.power != 0 and emission_node.efficacy != 0:
                     emission_node.emission_unit = "power"
                     emission_node.power *= emission_node.gain * calc_power_correction_factor(emission_node.spread_angle)
+                    emission_node.normalizebycolor = True
 
         LUXCORE_OT_convert_to_v23.was_executed = True
         return {"FINISHED"}
